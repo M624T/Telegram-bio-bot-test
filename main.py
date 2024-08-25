@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 import signal
 import sys
 from telethon import TelegramClient
@@ -6,9 +7,10 @@ from telethon.tl.functions.account import UpdateProfileRequest
 from datetime import datetime
 import asyncio
 
-api_id = '22120145'
-api_hash = '17020fdecdc16cb37c56a8e2e482b31d'
-phone_number = '+998994612517'
+load_dotenv()
+api_id = os.getenv('API_ID')
+api_hash = os.getenv('API_HASH')
+phone_number = os.getenv('PHONE_NUMBER')
 session_name = 'session_name'
 
 # Sessiya faylini o'chirish
