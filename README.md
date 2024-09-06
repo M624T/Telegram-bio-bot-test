@@ -60,10 +60,10 @@ Telegram profilning taxminiy o'rinishi:
 
 config.json, в который вы вводите свою личную информацию, например:
 
-* API_ID, API_HASH — ключи, необходимые для подключения вашего профиля Telegram. Вы можете получить их на (my.telegram.org)
+* API_ID, API_HASH — ключи, необходимые для подключения вашего профиля Telegram. Вы можете получить их на ([my.telegram.org](https://my.telegram.org/auth))
 * PHONE_NUMBER — номер телефона или номер Telegram
 * SESSION_NAME — не изменяйте эту часть
-* API_KEY — после регистрации на (weatherfree) сайте возьмите API ключ и пропишите его
+* API_KEY — после регистрации на ([weatherfree](https://www.weatherapi.com/)) сайте возьмите API ключ и пропишите его
 * CITY — место, где вы живете
 
 ! Посмотрите внимательно здесь. Профиль Telegram не должен превышать 70 символов. Примите это во внимание.
