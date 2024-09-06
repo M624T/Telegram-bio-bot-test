@@ -7,42 +7,51 @@ import asyncio
 
 # config.json faylidan ma'lumotlarni o'qish
 def read_config(file_path):
-    with open(file_path, 'r') as file:
+    with open(file_path, "r") as file:
         return json.load(file)
 
-config = read_config('config.json')
+config = read_config("config.json")
+
+tsikl = 0  # Telegram profil nechi marta o'zgartirilganligini hisoblash uchun
 
 # Telegram API uchun ma'lumotlarni json faylidan olib qo'yish
-api_id = config['API_ID']
-api_hash = config['API_HASH']
-phone_number = config['PHONE_NUMBER']
-session_name = config['SESSION_NAME']
-api_key = config['API_KEY']
-city = config['CITY']
+api_id = config["API_ID"]
+api_hash = config["API_HASH"]
+phone_number = config["PHONE_NUMBER"]
+session_name = config["SESSION_NAME"]
+api_key = config["API_KEY"]
+city = config["CITY"]
 
-client = TelegramClient(session_name, api_id, api_hash) # Telegram API uchun client yaratish
+client = TelegramClient(
+    session_name, api_id, api_hash
+)  # Telegram API uchun client yaratish
+
 
 async def update_profile():
+    global tsikl  # tsikl o'zgaruvchisiga global deb e'lon qilish
+    
     while True:
-        now_data = datetime.now().strftime('%Y-%m-%d') #  hozirgi sana
-        now_time = datetime.now().strftime('%H:%M')  # hozirgi vaqti
+        now_data = datetime.now().strftime("%Y-%m-%d")  # hozirgi sana
+        now_time = datetime.now().strftime("%H:%M")  # hozirgi vaqt
 
-        # Ob-havo ma'lumotini URL bilon forecast.json fayli orqali olish
+        # Ob-havo ma'lumotini URL bilan forecast.json fayli orqali olish
         url_forecast = f"http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={city}&days=1&aqi=no&alerts=no"
         forecast = requests.get(url_forecast)
-        weather_day_info = forecast.json() # Ob-havo ma'lumotlarini json formatida olish
-        sunrise = weather_day_info['forecast']['forecastday'][0]['astro']['sunrise'] # Ob-Havo tong otish vaqti
-        sunset  = weather_day_info['forecast']['forecastday'][0]['astro']['sunset'] #  Ob-Havo quyosh botish vaqti
+        weather_day_info = forecast.json()  # Ob-havo ma'lumotlarini json formatida olish
+        sunrise = weather_day_info["forecast"]["forecastday"][0]["astro"]["sunrise"]  # Ob-Havo tong otish vaqti
+        sunset = weather_day_info["forecast"]["forecastday"][0]["astro"]["sunset"]  # Ob-Havo quyosh botish vaqti
 
-        # Ob-havo ma'lumotini URL bilon current.json fayli orqali olish
-        url_current = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}&aqi=no"
+        # Ob-havo ma'lumotini http client orqali kirish
+        url_current = (
+            f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}&aqi=no"
+        )
         current = requests.get(url_current)
-        weather_data = current.json() # Ob-havo ma'lumotlarini json formatida olish
-        temperature = weather_data['current']['temp_c'] # Ob_Havo haroratini olish °C ko'rinishida
-        condition = weather_data['current']['condition']['text'].lower() # Ob-Havo holatini bilish
-        region = weather_data['location']['region'] # Mamlakat nomini olish
+        weather_data = current.json()  # Ob-havo ma'lumotlarini currentjson formatida olish
+        temperature = weather_data["current"]["temp_c"]  # Ob-Havo haroratini hozirgi vaqtda °C ko'rinishida olish
+        condition = weather_data["current"]["condition"]["text"].lower()  # Ob-Havo holatini hozirgi vaqtda bilish
+        region = weather_data["location"]["region"]  # Mamlakat nomini olish
 
-        # Ob-Havo holatini str holatidan Emoji ko'rinishida saqlaymiz
+        # Ob-Havo holatini (str) holatidan Emoji ko'rinishida saqlaymiz
         emoji = ""
         if "sunny" in condition:
             emoji = "☀️"
@@ -55,7 +64,7 @@ async def update_profile():
         elif "storm" in condition or "thunder" in condition:
             emoji = "⛈️"
         else:
-            emoji = "🌡️"
+            emoji = "🌡️"  # Agar hechqaysi havo holati to'g'ri kelmasa
 
         # Telegramg profilga yozilishi kerak bo'lgan matn
         about_text = f"📅 {now_data} | 🕒 {now_time} | {region} {emoji} {temperature} °C | 🌅 {sunrise} | 🌇 {sunset}"
@@ -65,13 +74,27 @@ async def update_profile():
         if len(about_text) > max_length:
             about_text = about_text[:max_length]
 
-        await client(UpdateProfileRequest(about=about_text)) # Matnni Telegram (bio) ga yuklaymiz
-        print(f"({now_time}) Profil bio yangilandi --> {about_text}") # Terminalda bio yangilangaanligini ko'rish uchun
+        tsikl += 1  # O'zgaruvchini oshirish
+
+        await client(UpdateProfileRequest(about=about_text))  # Matnni Telegram (bio) ga yuklaymiz
+        print(f"🔄 {tsikl} - aylana ({now_time})\n    Profil bio yangilandi --> {about_text}")  # Terminalda bio yangilangaanligini ko'rish uchun
         await asyncio.sleep(600)  # Har 600 sekund ( 10-minut )da bir marta yangilanish
+
 
 async def main():
     await client.start(phone=phone_number)
     await update_profile()
 
-with client:
-    client.loop.run_until_complete(main())
+# Xatolikni boshqaruvchi qism
+try:
+    with client:
+        client.loop.run_until_complete(main())
+except ConnectionError:
+    print("❌ Internetga ulanishda muammo. Iltimos, internet aloqasini tekshiring.")
+except KeyboardInterrupt:
+    print("------------------------------------")
+    print("UZB--->\t❌ Dastur yakunlandi")
+    print("RU--->\t❌ Программа завершилась")
+    print("------------------------------------")
+except Exception as e:
+    print(f"❌ Xatolik yuz berdi: {e}")
