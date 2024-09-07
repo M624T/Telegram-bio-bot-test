@@ -54,7 +54,7 @@ Telegram profilning taxminiy o'rinishi:
 * Telethon==1.36.0
 * urllib3==2.2.2
 
-Вы можете загрузить эти библиотеки с помощью команды (pip install -r require.txt).
+Вы можете загрузить эти библиотеки с помощью команды (pip install -r requirements.txt).
 
 -----------------------------------------------
 
