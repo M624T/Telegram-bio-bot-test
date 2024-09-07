@@ -90,11 +90,20 @@ try:
     with client:
         client.loop.run_until_complete(main())
 except ConnectionError:
-    print("❌ Internetga ulanishda muammo. Iltimos, internet aloqasini tekshiring.")
+    print("------------------------------------")
+    print("(ENG)\t❌ Internet connection problem.")
+    print("(RU)\t❌ Проблема подключения к интернету.")
+    print("(UZB)\t❌ Internetga ulanishda muammo.")
+    print("------------------------------------")
 except KeyboardInterrupt:
     print("------------------------------------")
-    print("UZB--->\t❌ Dastur yakunlandi")
-    print("RU--->\t❌ Программа завершилась")
+    print("(ENG)\t❌ Program ended.")
+    print("(RU)\t❌ Программа завершилась.")
+    print("(UZB)\t❌ Dastur yakunlandi.")
     print("------------------------------------")
 except Exception as e:
-    print(f"❌ Xatolik yuz berdi: {e}")
+    print("------------------------------------")
+    print(f"(ENG)\t❌ An error occurred: {e}")
+    print(f"(RU)\t❌ Произошла ошибка: {e}")
+    print(f"(UZB)\t❌ Xatolik yuz berdi: {e}")
+    print("------------------------------------")
