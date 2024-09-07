@@ -35,13 +35,13 @@ config.json, where you enter your personal information such as:
 Information displayed in the Telegram profile:
 
 * from the datetime library:
-+ Calendar
-+ Time
+	+ Calendar
+	+ Time
 * from the library requests:
-+ Country name
-+ Weather status (as emoji)
-+ Temperature
-+ Time of sunrise and sunset
+	+ Country name
+	+ Weather status (as emoji)
+	+ Temperature
+	+ Time of sunrise and sunset
 
 A rough view of a Telegram profile:
 📅 2020-02-20 | 🕒 22:02 | Tashkent ☀️ 25.1 °C | 🌅 05:53 AM | 🌇 06:51 PM
