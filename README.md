@@ -1,3 +1,59 @@
+---------------------------------------------------
+------------------------ENG------------------------
+---------------------------------------------------
+
+
+
+Let's use the file, you will need the following libraries:
+
+* certifi==2024.7.4
+* charset-normalizer==3.3.2
+* idna==3.8
+* pyaes==1.6.1
+* pyasn1==0.6.0
+* requests==2.32.3
+* rsa==4.9
+* telethon==1.36.0
+* urllib3==2.2.2.
+
+You can download these libraries using the command (pip install -r requirements.txt).
+
+----------------------
+
+config.json, where you enter your personal information such as:
+
+* API_ID, API_HASH - keys needed to connect your Telegram profile. You can get them at ([my.telegram.org](https://my.telegram.org/auth))
+* PHONE_NUMBER - phone number or Telegram number
+* SESSION_NAME - don't change this part
+* API_KEY - after registering on ([weatherfree](https://www.weatherapi.com/)) site, take the API key and write it in.
+* CITY - where you live.
+
+! Look carefully here. Telegram profile should not exceed 70 characters. Take this into consideration.
+
+----------------------
+
+Information displayed in the Telegram profile:
+
+* from the datetime library:
++ Calendar
++ Time
+* from the library requests:
++ Country name
++ Weather status (as emoji)
++ Temperature
++ Time of sunrise and sunset
+
+A rough view of a Telegram profile:
+📅 2020-02-20 | 🕒 22:02 | Tashkent ☀️ 25.1 °C | 🌅 05:53 AM | 🌇 06:51 PM
+
+
+
+---------------------------------------------------
+------------------------UZB------------------------
+---------------------------------------------------
+
+
+
 main.py faylni ishlatish uchun sizga kerakli bo'ladigan kutibxonalar:
 
 * certifi==2024.7.4
@@ -12,7 +68,7 @@ main.py faylni ishlatish uchun sizga kerakli bo'ladigan kutibxonalar:
 
 Bu kutibxonalarni (pip install -r requirements.txt) komandasi orqali yuklab olishingiz mumkin.
 
------------------------------------------------
+----------------------
 
 config.json faylni o'zingizni shaxsiy ma'lumotlaringizni kiritasiz masalan:
 
@@ -24,7 +80,7 @@ config.json faylni o'zingizni shaxsiy ma'lumotlaringizni kiritasiz masalan:
 
 ! Shu yerga diqqat bilan qaranh. Telegram profilga faqat 70 ta belgidan oshib ketmaslik kerak. Shuni inobatga olishlar.
 
------------------------------------------------
+----------------------
 
 Telegram frofilda ko'rsatiladigan ma'lumotlar:
 
@@ -40,7 +96,13 @@ Telegram frofilda ko'rsatiladigan ma'lumotlar:
 Telegram profilning taxminiy o'rinishi:
     📅 2020-02-20 | 🕒 22:02 | Toshkent ☀️ 25.1 °C | 🌅 05:53 AM | 🌇 06:51 PM
 
+
+
+--------------------------------------------------
 ------------------------RU------------------------
+--------------------------------------------------
+
+
 
 Давайте использовать файл, вам понадобятся следующие библиотеки:
 
@@ -56,7 +118,7 @@ Telegram profilning taxminiy o'rinishi:
 
 Вы можете загрузить эти библиотеки с помощью команды (pip install -r requirements.txt).
 
------------------------------------------------
+----------------------
 
 config.json, в который вы вводите свою личную информацию, например:
 
@@ -68,7 +130,7 @@ config.json, в который вы вводите свою личную инф�
 
 ! Посмотрите внимательно здесь. Профиль Telegram не должен превышать 70 символов. Примите это во внимание.
 
------------------------------------------------
+----------------------
 
 Информация, отображаемая в профиле Telegram:
 
