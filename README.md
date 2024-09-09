@@ -1,5 +1,4 @@
-ENG
------
+# ENG
 
 Let's use the file, you will need the following libraries:
 
@@ -44,8 +43,8 @@ A rough view of a Telegram profile:
 📅 2020-02-20 | 🕒 22:02 | Tashkent ☀️ 25.1 °C | 🌅 05:53 AM | 🌇 06:51 PM
 
 ----------------------
-UZB
------
+# UZB
+
 
 main.py faylni ishlatish uchun sizga kerakli bo'ladigan kutibxonalar:
 
@@ -90,8 +89,8 @@ Telegram profilning taxminiy o'rinishi:
     📅 2020-02-20 | 🕒 22:02 | Toshkent ☀️ 25.1 °C | 🌅 05:53 AM | 🌇 06:51 PM
 
 ----------------------
-RU
------
+# RU
+
 
 Давайте использовать файл, вам понадобятся следующие библиотеки:
 
