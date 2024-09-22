@@ -2,7 +2,6 @@ import json
 import requests
 from telethon import TelegramClient
 from telethon.tl.functions.account import UpdateProfileRequest
-from datetime import datetime
 import asyncio
 
 # config.json faylidan ma'lumotlarni o'qish
@@ -31,9 +30,6 @@ async def update_profile():
     global tsikl  # tsikl o'zgaruvchisiga global deb e'lon qilish
     
     while True:
-        now_data = datetime.now().strftime("%Y-%m-%d")  # hozirgi sana
-        now_time = datetime.now().strftime("%H:%M")  # hozirgi vaqt
-
         # Ob-havo ma'lumotini URL bilan forecast.json fayli orqali olish
         url_forecast = f"http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={city}&days=1&aqi=no&alerts=no"
         forecast = requests.get(url_forecast)
@@ -50,6 +46,10 @@ async def update_profile():
         temperature = weather_data["current"]["temp_c"]  # Ob-Havo haroratini hozirgi vaqtda °C ko'rinishida olish
         condition = weather_data["current"]["condition"]["text"].lower()  # Ob-Havo holatini hozirgi vaqtda bilish
         region = weather_data["location"]["region"]  # Mamlakat nomini olish
+
+        # Sana va vaqtni WeatherAPI'dan olish
+        localtime = weather_data["location"]["localtime"]
+        now_data, now_time = localtime.split(" ")  # Sana va vaqtni ajratib olish
 
         # Ob-Havo holatini (str) holatidan Emoji ko'rinishida saqlaymiz
         emoji = ""
